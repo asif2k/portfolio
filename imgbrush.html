@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+</head>
+<body>
+  <h1 id="lblPer"></h1>
+  <script>
+    function create_canvas(w, h) {
+      var temp_canvas = document.createElement('canvas');
+      temp_canvas.ctx = temp_canvas.getContext('2d');
+      temp_canvas.width = w;
+      temp_canvas.height = h;
+      temp_canvas.set_size = function (ww, hh) {
+        this.width = ww;
+        this.height = hh;
+      };
+      temp_canvas._get_image_data = function () {
+        this.imd = this.ctx.getImageData(0, 0, this.width, this.height);
+        return this.imd;
+      };
+
+      temp_canvas._put_image_data = function () {
+        this.ctx.putImageData(this.imd, 0, 0);
+      };
+
+      return (temp_canvas);
+    };
+
+    async function image_as_canvas(url,ww,hh,fill) {     
+      fill = fill || "transparent";
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => {
+          let w =ww || img.width;
+          let h = hh || img.height;
+
+          const canv = create_canvas(w, h);
+          let s = 1;
+          if (img.width > img.height) {
+            s = w / img.width
+          }
+          else {
+            s = h / img.height
+          }
+          canv.ctx.fillStyle = fill;
+          canv.ctx.fillRect(0, 0, canv.width, canv.height);
+          canv.ctx.save();
+          canv.ctx.translate(w * 0.5, h * 0.5);
+
+          w = img.width * s;
+          h = img.height * s;
+          canv.ctx.drawImage(img, -w * 0.5, -h * 0.5, w, h);
+          canv.ctx.restore();
+          canv.ctx.strokeRect(1, 1, canv.width - 2, canv.height - 2);
+          resolve(canv);
+        }
+        img.src = url;
+      });
+    }
+
+    async function begin() {
+      let w , h;
+
+      const img = await image_as_canvas("a1.jpg");
+
+      w = img.width;
+      h = img.height;
+
+      const cimg = create_canvas(img.width, img.height);
+      const dimg = create_canvas(img.width, img.height);
+      const dscale = 2;
+      const dd1 = create_canvas(w / dscale, h / dscale);
+      const dd2 = create_canvas(dd1.width, dd1.height);
+
+      dd1.ctx.drawImage(img, 0, 0, dd1.width, dd1.height);
+
+      cimg.ctx.drawImage(img, 0, 0);
+      cimg.ctx.font = "24px arial";
+      cimg.ctx.fillStyle = "red";
+      cimg.ctx.fillText("Click To Start", w * 0.45, h * 0.5);
+
+
+
+      dimg.ctx.fillStyle = "#000"
+      dimg.ctx.fillRect(0, 0, w, h);
+
+    
+      const dt = img._get_image_data().data;
+
+      const dt1 = dd1._get_image_data().data;
+      let mincomp = Infinity;
+      const compare = (dt1, dt2) => {
+
+        let sum = 0, diff;
+        for (let i = 0; i < dt2.length; i++) {
+          if (i % 4 == 3) { continue; }
+          diff = dt1[i] - dt2[i];
+          sum = sum + diff * diff;
+          if (sum > mincomp) return mincomp * 2;
+        }
+
+        return sum;
+
+      }
+
+      let mper = 0;
+
+      const update = () => {
+
+      }
+
+      var mdiff = 0;
+      console.log("mdiff", mdiff);
+      const lblPer = document.getElementById("lblPer");
+      const step = () => {
+        let cx = -1, cy = -1, cr = 0, cc = "", x = 0, y = 0, r = 0, rs = 0, ni = 0, c = "", comp = 0, ccomp = 0;
+        let mr =  Math.max((w / 1.5) * (1.125 - mper));
+        for (let i = 0; i < 8; i++) {
+          dd2.ctx.drawImage(cimg, 0, 0, dd2.width, dd2.height);
+          x = Math.random() * w;
+          y = Math.random() * h;
+          r = Math.max(2, Math.random() * mr);
+
+          ni = ((Math.floor(y) * w) + Math.floor(x)) * 4;
+          c = `rgb(${dt[ni]},${dt[ni + 1]},${dt[ni + 2]})`;
+          dd2.ctx.fillStyle = c;
+
+          rs = r / dscale;
+          dd2.ctx.fillRect((x / dscale) - rs * 0.5, (y / dscale) - rs * 0.5, rs, rs);
+
+          comp = compare(dt1, dd2._get_image_data().data);
+          mincomp = Math.min(mincomp, comp);
+          if (cx == -1) {
+            if (mincomp === Infinity || comp <= mincomp) {
+              cx = x;
+              cy = y;
+              cc = c;
+              cr = r;
+              ccomp = comp;
+            }
+          }
+          else if (ccomp > comp && comp <= mincomp) {
+            cx = x;
+            cy = y;
+            cc = c;
+            cr = r;
+            ccomp = comp;
+          }
+
+        }
+        if (cx !== -1) {
+          cimg.ctx.fillStyle = cc;
+          cimg.ctx.fillRect(cx - cr * 0.5, cy - cr * 0.5, cr, cr);
+        }
+        mper = 1 - (compare(dt, cimg._get_image_data().data) / mdiff);
+        lblPer.innerHTML = (mper * 100).toFixed(5) + "%";
+        if (mper < 0.99999) setTimeout(step, 300 * (1 - mper));
+        else {
+          console.log("done");
+        }
+      }
+      const cclick = () => {
+        cimg.removeEventListener("click", cclick);
+
+        cimg.ctx.fillStyle = "#000"
+        cimg.ctx.fillRect(0, 0, w, h);
+        mdiff = compare(dt, cimg._get_image_data().data);
+       
+        step();
+      }
+      cimg.addEventListener("click", cclick);
+     
+      document.body.appendChild(cimg);
+
+    }
+    
+    begin();
+  </script>
+</body>
+</html>
