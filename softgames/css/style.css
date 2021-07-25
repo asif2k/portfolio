@@ -1,0 +1,24 @@
+body {
+	background-color: #ffffff;
+	font-family: "Century Gothic", helvetica, arial, sans-serif;
+	font-size: 1.4em;
+	line-height: 1.5;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.fps {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	color: #0000ff;
+	z-index: 10;
+	font-family: monospace;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+}
