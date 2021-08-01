@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <style>
+   .iibar{
+     background-color:green;
+     display:block;
+     height:6px;
+
+   }
+   body {
+     font-size:12px;
+     display:flex;
+     flex-wrap:wrap;
+     overflow-x:hidden;
+   }
+
+   .item {
+     min-width: 350px;
+     border: solid 2px #e6e6e6;
+    
+     padding: 2px;
+   }
+   .item i {
+     font-style:normal;
+     padding-left:10px;
+   }
+     .item:hover {
+       transform: scale(1.5);
+       transform-origin: left top;
+       background-color: white;
+     }
+ </style>
+</head>
+<body>
+  <script>
+    const pairs = [["Bitcoin", "btcusdt", 40945.78], ["yearn.finance", "yfiusdt", 32231.43], ["DFI.Money", "yfiiusdt", 3458.61], ["Maker", "mkrusdt", 2944.32], ["Ethereum", "ethusdt", 2559.5], ["PAX Gold", "paxgusdt", 1815.62], ["Auto", "autousdt", 816.23], ["Bitcoin Cash", "bchusdt", 543.38], ["Compound", "compusdt", 397.09], ["Binance Coin", "bnbusdt", 334.91], ["Aave", "aaveusdt", 320.17], ["BNBUP", "bnbupusdt", 278.51], ["Monero", "xmrusdt", 244.17], ["Kusama", "ksmusdt", 217.11], ["Dash", "dashusdt", 164.86], ["Quant", "qntusdt", 155.04], ["Litecoin", "ltcusdt", 144.56], ["Zcash", "zecusdt", 120.26], ["Enzyme", "mlnusdt", 91.02], ["Elrond", "egldusdt", 90.26], ["BTCUP", "btcupusdt", 69.05], ["ADAUP", "adaupusdt", 65.21], ["Horizen", "zenusdt", 58.27], ["Filecoin", "filusdt", 56.2], ["ETHUP", "ethupusdt", 55.02], ["Ethereum Classic", "etcusdt", 51.27], ["Bitcoin Gold", "btgusdt", 51.13], ["Neo", "neousdt", 43.4], ["Internet Computer", "icpusdt", 42.07], ["Tellor", "trbusdt", 40.19], ["Axie Infinity", "axsusdt", 39], ["Numeraire", "nmrusdt", 38.53], ["Solana", "solusdt", 34.86], ["FTX Token", "fttusdt", 34.73], ["Venus", "xvsusdt", 28.42], ["Augur", "repusdt", 25.04], ["Paris Saint-Germain Fan Token", "psgusdt", 24.65], ["Chainlink", "linkusdt", 22.66], ["Flow", "flowusdt", 22.47], ["Uniswap", "uniusdt", 22.28], ["BarnBridge", "bondusdt", 22.27], ["Balancer", "balusdt", 22.01], ["FC Barcelona Fan Token", "barusdt", 21.79], ["Polkadot", "dotusdt", 19.34], ["Bitcoin Standard Hashrate Token", "btcstusdt", 18.28], ["Livepeer", "lptusdt", 18.02], ["Wing", "wingusdt", 17.19], ["PancakeSwap", "cakeusdt", 16.14], ["Waves", "wavesusdt", 16.14], ["Ampleforth Governance Token", "forthusdt", 15.64], ["Perpetual Protocol", "perpusdt", 14.09], ["Atletico De Madrid Fan Token", "atmusdt", 13.68], ["Helium", "hntusdt", 13.44], ["Avalanche", "avaxusdt", 13.23], ["Cosmos", "atomusdt", 12.74], ["Juventus Fan Token", "juvusdt", 12.58], ["Arweave", "arusdt", 12.26], ["MyNeighborAlice", "aliceusdt", 12.21], ["DeXe", "dexeusdt", 12.02], ["Terra", "lunausdt", 11.19], ["Badger DAO", "badgerusdt", 11.17], ["Dego Finance", "degousdt", 10.51], ["Synthetix", "snxusdt", 9.82], ["Unifi Protocol DAO", "unfiusdt", 9.41], ["UMA", "umausdt", 8.86], ["SushiSwap", "sushiusdt", 8.5], ["Gitcoin", "gtcusdt", 8.34], ["Ethernity Chain", "ernusdt", 8], ["Qtum", "qtumusdt", 7.62], ["Injective Protocol", "injusdt", 6.75], ["THORChain", "runeusdt", 6.37], ["Band Protocol", "bandusdt", 6.36], ["UNIUP", "uniupusdt", 6.13], ["Orion Protocol", "ornusdt", 6.06], ["THETA", "thetausdt", 5.96], ["DOTUP", "dotupusdt", 5.81], ["Firo", "firousdt", 5.7], ["Kava.io", "kavausdt", 5.3], ["Mask Network", "maskusdt", 4.75], ["Nano", "nanousdt", 4.46], ["OMG Network", "omgusdt", 4.45], ["EOS", "eosusdt", 4.08], ["Aragon", "antusdt", 4.07], ["Burger Swap", "burgerusdt", 4.04], ["Serum", "srmusdt", 3.9], ["Lisk", "lskusdt", 3.82], ["ETHDOWN", "ethdownusdt", 3.75], ["Litentry", "litusdt", 3.59], ["Bancor", "bntusdt", 3.54], ["iExec RLC", "rlcusdt", 3.42], ["XRPUP", "xrpupusdt", 3.09], ["Tezos", "xtzusdt", 3.08], ["Mirror Protocol", "mirusdt", 3.03], ["TomoChain", "tomousdt", 2.73], ["Celo", "celousdt", 2.73], ["NEAR Protocol", "nearusdt", 2.42], ["LINKUP", "linkupusdt", 2.36], ["1inch", "1inchusdt", 2.35], ["Travala.com", "avausdt", 2.17], ["Swipe", "sxpusdt", 2.13], ["AAVEUP", "aaveupusdt", 2.12], ["BakeryToken", "bakeusdt", 2.05], ["Metal", "mtlusdt", 2.05], ["Stratis", "straxusdt", 1.9], ["Bella Protocol", "belusdt", 1.71], ["Curve DAO Token", "crvusdt", 1.7], ["Kyber Network Crystal v2", "kncusdt", 1.61], ["Toko Token", "tkousdt", 1.57], ["FILUP", "filupusdt", 1.53], ["DIA", "diausdt", 1.5], ["Pundi X[new]", "pundixusdt", 1.48], ["Pound Sterling", "gbpusdt", 1.44], ["Enjin Coin", "enjusdt", 1.42], ["Cardano", "adausdt", 1.34], ["Stacks", "stxusdt", 1.22], ["DODO", "dodousdt", 1.19], ["Coin98", "c98usdt", 1.19], ["Euro", "eurusdt", 1.17], ["Audius", "audiousdt", 1.15], ["CertiK", "ctkusdt", 1.14], ["Mdex", "mdxusdt", 1.14], ["Clover Finance", "clvusdt", 1.13], ["WazirX", "wrxusdt", 1.11], ["SXPDOWN", "sxpdownusdt", 1.09], ["Storj", "storjusdt", 1.07], ["Polygon", "maticusdt", 1.07], ["ICON", "icxusdt", 1.02], ["Binance USD", "busdusdt", 1], ["Paxos Standard", "paxusdt", 0.9999], ["USD Coin", "usdcusdt", 0.9999], ["BNBDOWN", "bnbdownusdt", 0.9998], ["TrueUSD", "tusdusdt", 0.9997], ["SafePal", "sfpusdt", 0.9971], ["Stafi", "fisusdt", 0.9034], ["IOTA", "iotausdt", 0.8926], ["Komodo", "kmdusdt", 0.8644], ["Algorand", "algousdt", 0.8404], ["Ontology", "ontusdt", 0.8281], ["Origin Protocol", "ognusdt", 0.8043], ["0x", "zrxusdt", 0.8033], ["Ontology Gas", "ongusdt", 0.792], ["Phala Network", "phausdt", 0.7836], ["XRP", "xrpusdt", 0.7503], ["SuperFarm", "superusdt", 0.7403], ["Australian Dollar", "audusdt", 0.7316], ["pNetwork", "pntusdt", 0.7314], ["HARD Protocol", "hardusdt", 0.7158], ["Decentraland", "manausdt", 0.704], ["Cocos-BCX", "cocosusdt", 0.7011], ["The Graph", "grtusdt", 0.6846], ["Alpha Finance Lab", "alphausdt", 0.6814], ["Basic Attention Token", "batusdt", 0.668], ["The Sandbox", "sandusdt", 0.5942], ["Ellipsis", "epsusdt", 0.5392], ["Ocean Protocol", "oceanusdt", 0.5389], ["Beam", "beamusdt", 0.5386], ["Flamingo", "flmusdt", 0.4526], ["Ren", "renusdt", 0.4411], ["Cartesi", "ctsiusdt", 0.4268], ["Fetch.ai", "fetusdt", 0.4187], ["Automata Network", "atausdt", 0.402], ["Hive", "hiveusdt", 0.3942], ["Trust Wallet Token", "twtusdt", 0.3781], ["Theta Fuel", "tfuelusdt", 0.3213], ["Chromia", "chrusdt", 0.3051], ["Orchid", "oxtusdt", 0.2958], ["LTO Network", "ltousdt", 0.2937], ["Stellar", "xlmusdt", 0.2839], ["Alien Worlds", "tlmusdt", 0.2838], ["Keep Network", "keepusdt", 0.2795], ["Civic", "cvcusdt", 0.2717], ["Loopring", "lrcusdt", 0.2661], ["Chiliz", "chzusdt", 0.2632], ["Fantom", "ftmusdt", 0.2576], ["Ardor", "ardrusdt", 0.2575], ["NKN", "nknusdt", 0.2562], ["SKALE Network", "sklusdt", 0.2533], ["bZx Protocol", "bzrxusdt", 0.2479], ["Utrust", "utkusdt", 0.2316], ["NuCypher", "nuusdt", 0.221], ["Smooth Love Potion", "slpusdt", 0.2094], ["Hedera Hashgraph", "hbarusdt", 0.2084], ["Dogecoin", "dogeusdt", 0.208], ["RAMP", "rampusdt", 0.2035], ["FIO Protocol", "fiousdt", 0.1807], ["NEM", "xemusdt", 0.1757], ["Bluzelle", "blzusdt", 0.1725], ["TrueFi", "truusdt", 0.1572], ["district0x", "dntusdt", 0.1469], ["COTI", "cotiusdt", 0.1376], ["MANTRA DAO", "omusdt", 0.1296], ["Aion", "aionusdt", 0.1276], ["Dusk Network", "duskusdt", 0.1094], ["LINKDOWN", "linkdownusdt", 0.109], ["Streamr", "datausdt", 0.09901], ["Ankr", "ankrusdt", 0.0912], ["VeChain", "vetusdt", 0.08783], ["Zilliqa", "zilusdt", 0.08212], ["Harmony", "oneusdt", 0.07871], ["IRISnet", "irisusdt", 0.07738], ["Oasis Network", "roseusdt", 0.07692], ["SUSHIUP", "sushiupusdt", 0.06693], ["Dock", "dockusdt", 0.06563], ["Ravencoin", "rvnusdt", 0.06562], ["TRON", "trxusdt", 0.06454], ["Marlin", "pondusdt", 0.06192], ["VITE", "viteusdt", 0.05806], ["VITE", "viteusdt", 0.05792], ["JUST", "jstusdt", 0.05354], ["DigiByte", "dgbusdt", 0.05015], ["Mithril", "mithusdt", 0.04289], ["BitShares", "btsusdt", 0.0425], ["ARPA Chain", "arpausdt", 0.04102], ["Linear", "linausdt", 0.04081], ["Gifto", "gtousdt", 0.03413], ["ADADOWN", "adadownusdt", 0.03292], ["Celer Network", "celrusdt", 0.03249], ["BTCDOWN", "btcdownusdt", 0.03189], ["Reserve Rights", "rsrusdt", 0.03184], ["IOST", "iostusdt", 0.02618], ["Sun (New)", "sunusdt", 0.02543], ["Verge", "xvgusdt", 0.02349], ["Akropolis", "akrousdt", 0.02276], ["StormX", "stmxusdt", 0.02264], ["IoTeX", "iotxusdt", 0.02016], ["AAVEDOWN", "aavedownusdt", 0.01988], ["Siacoin", "scusdt", 0.01708], ["FUNToken", "funusdt", 0.01706], ["Reef", "reefusdt", 0.01577], ["Contentos", "cosusdt", 0.01382], ["XRPDOWN", "xrpdownusdt", 0.01147], ["Nervos Network", "ckbusdt", 0.01064], ["Hifi Finance", "mftusdt", 0.009992], ["MovieBloc", "mblusdt", 0.008196], ["Selfkey", "keyusdt", 0.007059], ["Holo", "hotusdt", 0.006382], ["VeThor Token", "vthousdt", 0.006337], ["DOTDOWN", "dotdownusdt", 0.00456], ["SUSHIDOWN", "sushidownusdt", 0.003441], ["BitTorrent", "bttusdt", 0.002928], ["FILDOWN", "fildownusdt", 0.002703], ["Dent", "dentusdt", 0.002518], ["WINkLink", "winusdt", 0.0003618], ["UNIDOWN", "unidownusdt", 0.00009894], ["SHIBA INU", "shibusdt", 0.000006342]]
+    pairs.sort((a, b) => a[2] - b[2]);
+
+    function test1() {
+      var actives = [];
+      pairs.forEach((p, i) => {
+        if (i < 200) actives.push({
+          p: p, rp: Infinity,
+          min: Infinity,
+          max: 0,
+          diff: 0,
+          diffp: 0,
+          pb: 0,
+          value: 0, ii: 0, lvalue: 0, time: Date.now()
+        });
+      })
+
+      actives.forEach(a => {
+        a.ws = new WebSocket('wss://stream.binance.com:9443/ws/' + a.p[1] + '@trade');
+        a.ws.a = a;
+        a.ws.onmessage = function incoming(data) {
+          const d = JSON.parse(data.data);
+          const a = this.a;
+          a.value = parseFloat(d.p);
+
+          a.rp = (Date.now() - a.time) / 1000;
+          a.time = Date.now();
+          if (a.value !== a.lvalue) {
+            a.diff = a.value - a.lvalue;
+            a.diffp = a.diff / a.value;
+            a.ii++;
+            a.lvalue = a.value;
+          }
+          a.max = Math.max(a.value, a.max);
+          a.min = Math.min(a.value, a.min);
+
+
+        };
+      })
+
+      const displayActives = () => {
+        var t = '<table>';
+        //actives.sort((a, b) => b.ii - a.ii);
+        //Math.abs(a.diffp) * 10))*100
+        actives.forEach(a => {
+          a.pb = Math.abs(a.diffp);
+          //a.pb = a.ii / 50;
+          t += `<tr><td><a href="">${a.p[0]}</a> ${a.value} / ${(a.diffp * 100).toFixed(2)} [${a.min} -> ${a.max}  ]</td><td><div class="iibar" style="background-color:${(a.diffp < 0 ? "red" : "green")}; width:${a.pb * 1500}px;max-width:500px" ></div> </td></tr>`;
+          a.ii = 0;
+
+
+        });
+        t += '</table>';
+        document.body.innerHTML = t;
+      };
+      displayActives();
+      setInterval(displayActives, 2000);
+    }
+    
+
+    function test2() {
+      var actives = [];
+      pairs.forEach((p, i) => {
+        
+        actives.push({
+          p: p, rp: Infinity,
+          min: Infinity,
+          max: 0,
+          diff: 0,
+          diffp: 0,
+          pb: 0,
+          value: 0, ii: 0, lvalue: 0, time: Date.now()
+        });
+      });
+
+      actives.forEach((a, i) => {
+      // if (i > 10) return;
+       
+        a.ws = new WebSocket('wss://stream.binance.com:9443/ws/' + a.p[1] + '@trade');
+        a.ws.a = a;
+        a.ws.onmessage = function incoming(data) {
+          const d = JSON.parse(data.data);
+          const a = this.a;
+          a.value = parseFloat(d.p);
+
+          a.rp = (Date.now() - a.time) / 1000;
+          a.time = Date.now();
+          if (a.value !== a.lvalue) {
+            a.diff = a.value - a.lvalue;
+            a.diffp = a.diff / a.value;
+          //  a.ii++;
+            a.lvalue = a.value;
+          }
+          a.max = Math.max(a.value, a.max);
+          a.min = Math.min(a.value, a.min);
+          if (a.diffp < 0) {
+            a.div.style.borderColor = "red";
+          }
+          else {
+            a.div.style.borderColor = "green";
+          }
+          a.status.innerHTML = `${a.value} / ${(a.diffp * 100).toFixed(2)} [${a.min} -> ${a.max}]`;
+
+        };
+
+        var div = document.createElement("div");
+        div.innerHTML = `<a target="_blank" href="https://www.binance.com/en/trade/${a.p[1].replace("usdt","_USDT").toUpperCase()}?layout=pro&theme=dark&type=spot">${a.p[0]}</a><i></i>`;
+        div.className = "item";
+        a.status = div.querySelector("i");
+        a.div = div;
+        a.div.style.width = ((window.innerWidth-80) / 5) + "px";
+        document.body.appendChild(div);
+
+      });
+
+
+      const clear = () => {
+        actives.forEach((a, i) => {
+
+          a.div.style.borderColor = "#e6e6e6";
+        });
+      }
+      setInterval(clear, 1000);
+    }
+
+    test2();
+
+  </script>
+</body>
+</html>
