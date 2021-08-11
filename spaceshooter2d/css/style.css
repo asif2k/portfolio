@@ -1,0 +1,24 @@
+body {
+	background-color: #ffffff;
+	font-family: "Century Gothic", helvetica, arial, sans-serif;
+	font-size: 1.4em;
+	line-height: 1.5;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+canvas {
+	width: 800px;
+	height: 600px;
+}
+
+#canvasContainer {
+	
+	position: absolute;
+	left:50%;
+	top:50%;
+	margin-top: -300px;
+	margin-left: -400px;
+}
