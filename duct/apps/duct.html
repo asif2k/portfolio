@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title>finally</title>
+  <script src="../finally.js"></script>
+  <style>
+    a {
+        user-select:none;
+        border-top-left-radius
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+    <img id="test_texture_atlas" style="display:none" />
+    <script>
+
+
+        fin.entry(function (fin, ge, math) {
+            dependencies([
+                ['ecs', '/libs/ecs.js'],
+                ['math', '/libs/math.js'],
+                ['ge', '/ge/index.js'],
+
+
+            ]);
+
+            var app = new ge.app({
+                renderer: {
+                    pixel_ratio: 1
+                }
+            });
+
+            function RD(a) {
+                return a * math.DEGTORAD;
+            }
+            var RV = function (min, max) {
+                return Math.floor(Math.min(max, (Math.random() * max) + min));
+            }
+
+
+            app.create_renderable(new ge.shading.light({
+                intensity: 2,
+                ambient: [1, 1, 1]
+            }),
+                function (m, e) {
+                    e.ge_transform.rotate_eular(RD(-90), RD(170), 0);
+
+
+                    m.enable_shadows({
+                        shadow_intensity: 0.2,
+                        shadow_map_size: 2048,
+                        shadow_camera_distance: 25
+                    })
+                });
+
+
+
+            var camera = app.render_system.camera;
+
+
+
+            app.create_renderable(new ge.geometry.mesh({
+                geometry: ge.geometry.shapes.plane({ width: 100, height: 100 }), material: new ge.shading.shaded_material({ specular: [0, 0, 0] })
+            }),
+                function (m, e) {
+                    e.ge_transform.set_position(0, 0, 0).rotate_eular(RD(-90), 0, 0);
+                    m.material.texture = ge.webgl.texture.from_url("res/r10.jpg", true);
+                    math.mat3.translate_rotate_scale(m.material.texture_matrix, 0, 0, 16, 16, 0);
+
+
+                });
+
+
+
+
+            camera.ge_transform_controller
+
+                //.set_position(6.851924896240234, 3.1162030696868896, -11.356725692749023)
+                //.set_rotate(0.6349994540214539, 7.835032939910889, 0);
+
+                .set_position(9.219439506530762, 12.407609939575195, 14.522102355957031)
+                .set_rotate(-0.2650001347064972, 0.015000144951045513, 0);
+
+
+            app.attach_component(camera, 'ge_mouse_camera_controller', {
+                element: app.render_system.renderer.canvas,
+                wheel_delta: 0.01,
+                on_mouse_down: function (x, y, e) {
+                    app.render_system.picking_mouse_x = x;
+                    app.render_system.picking_mouse_y = y;
+                },
+                on_mouse_up: function (x, y, e) {
+                    camera.ge_camera.is_locked = false;
+                },
+            });
+
+            window.onresize = function () {
+                app.render_system.resize();
+            }
+
+
+
+
+
+            var ps = app.use_system('worker_particles_system', {});
+
+            console.log(ps);
+
+
+
+
+
+
+            var geos = ["beds", "pipes", "pillars", "ventwalls", "ventceil", "floor", "box"];
+
+
+            var mats = {
+                "box": {
+                    transparent: 0.45,
+                    ambient: [251, 238, 251],
+                    transparent_layer: 1,
+                    always_display: true,
+                    cast_shadows: false
+
+                },
+                "pipes": {
+                    transparent: 0.65,
+                    ambient: [110, 44, 0],
+                },
+                "beds": {
+                    ambient: [217, 99, 74],
+                    cast_shadows: true
+                },
+                "pillars": {
+                    ambient: [237, 187, 153],
+
+                },
+                "floor": {
+                    ambient: [52, 73, 94],
+                    receive_shadows: true
+                },
+                "ventwalls": {
+                    ambient: [34, 187, 211],
+
+                },
+                "ventceil": {
+                    ambient: [34, 187, 211]
+                }
+
+
+            };
+            app.root.ge_transform.set_position(0, 1, 0);
+
+            function start_sim() {
+                app.create_renderable(ps.create_point_particle_emitter({
+                    texture: ge.webgl.texture.create_texture_atlas({
+                        width: 2048, height: 2048,
+                        inputs: [
+                            { src: "res/point-particle-sheet.png", tiles_in_row: 5, dest_x: 0, dest_y: 0, dest_size: 64 },
+
+                        ]
+                    }),
+                    texture_sets: [
+                        [0, 0, 1920, 64]
+                    ],
+                    emitter: function (em) {
+                        em.update_particle = function (par, ins, time_delta) {
+                            par[3] += par[6] * time_delta;
+                            par[4] += par[7] * time_delta;
+                            par[5] += par[8] * time_delta;
+                        };
+                        em.pack_life_texture_size = function (uint8, par) {
+                            uint8[2] = 10;
+                            uint8[1] = 0;
+                            uint8[0] =200;
+                        };
+
+                        var agrid = [], ar;
+                        for (var z = 0; z < 13; z += 1.5) {
+                            for (var x = 0; x < 17; x += 1.5) {
+                                agrid.push([x, z]);
+                            }
+                        }
+
+                        em.trigger_emitter = function (ins) {
+                            par = this.queue_particle(0, ins.id, ins.particle_life);
+
+                            ar = agrid[Math.floor(Math.random() * agrid.length)];
+
+                            par[3] = ins.x + ar[0];
+                            par[4] = ins.y;
+                            par[5] = ins.z + ar[1];
+
+                            par[6] = (Math.random() - 0.5) * 1;
+                            par[7] = -0.6;
+                            par[8] = (Math.random() - 0.5) * 1;
+                            par[6] = 0;
+                            par[8] = 0;
+
+
+                            par[9] = -0.8;
+                        }
+
+
+                    }
+                }),
+                    function (m, e) {
+                        e.ge_transform.parent = app.root.ge_transform;
+                        m.emitter.push_command([200, 1, -1, 0.01, 0.8999999999999363, 9.1, -13.05000000000011, 8]);
+
+
+
+                    });
+            }
+
+            fin.each_index(function (i, next) {
+                fin.url_loader("res/" + geos[i] + ".json", function (data) {
+
+                    var d = JSON.parse(data);
+
+                    var g = ge.geometry.geometry_data.create({
+                        vertices: new Float32Array(d.p),
+                        normals: new Float32Array(d.n)
+                    });
+
+                    var mat = {
+                        ambient: [128, 128, 128]
+                    }
+                    var mm = mats[geos[i]];
+                    if (mm) {
+                        Object.assign(mat, mm)
+                    }
+
+                    mat.ambient[0] /= 256;
+                    mat.ambient[1] /= 256;
+                    mat.ambient[2] /= 256;
+
+                    mat.diffuse = mat.ambient;
+
+                    g.scale_position_rotation(0.003, 0.003, 0.003, 0, 0, 0, -math.DEGTORAD * 90, 0, 0)
+                    app.create_renderable(new ge.geometry.mesh({
+                        geometry: g, material: new ge.shading.shaded_material(mat)
+                    }),
+                        function (m, e) {
+                            e.ge_transform.parent = app.root.ge_transform;
+                            if (i < geos.length - 1) next(i + 1);
+                            else {
+                                start_sim();
+                            }
+                        });
+                });
+
+            });
+
+
+
+
+
+            app.start(function () {
+
+            }, 1 / 60);
+
+        });
+
+
+
+    </script>
+
+
+
+</body>
+</html>

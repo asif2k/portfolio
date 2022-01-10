@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title>finally</title>
+  <script src="../finally.js"></script>
+  <style>
+    
+
+
+  </style>
+
+</head>
+
+<body>
+    <img id="test_texture_atlas" style="display:none" />
+  <script>    
+    /*
+    fin.compile_modules_cache([
+      ['ecs', '/libs/ecs.js'],
+      ['math', '/libs/math.js'],
+      ['ge', '/ge/index.js']
+    ]);
+    
+    fin.entry(function (fin, ge, math) {
+      dependencies([
+        ['ecs', '/libs/ecs.js'],
+        ['math', '/libs/math.js'],
+        ['ge', '/ge/index.js']
+
+      ]);
+
+
+
+    }, function () {
+      fin.export_code();
+    });
+  
+  
+    */
+    
+      fin.entry(function (fin, ge, math) {
+          dependencies([
+              ['ecs', '/libs/ecs.js'],
+              ['math', '/libs/math.js'],
+              ['ge', '/ge/index.js'],
+
+          ]);
+
+          var app = new ge.app({
+              renderer: {
+                  pixel_ratio: 1
+              }
+          });
+
+          function RD(a) {
+              return a * math.DEGTORAD;
+          }
+
+
+
+          app.create_renderable(new ge.shading.light({
+              intensity: 1,
+              ambient: [1, 1, 1]
+          }),
+              function (m, e) {
+                  e.ge_transform.rotate_eular(RD(-70), RD(90), 0);
+
+
+                  m.enable_shadows({
+                      shadow_intensity: 0.2,
+                      shadow_map_size: 1024,
+                      shadow_camera_distance: 15
+                  })
+              });
+
+
+
+          var camera = app.render_system.camera;
+
+
+
+
+
+
+
+
+          camera.ge_transform_controller.set_position(-5.861514568328857, 9.781133651733398, 16.22023582458496).set_rotate(-0.6799997091293335, -0.31999993324279785, 0);
+
+
+          
+
+          window.onresize = function () {
+              app.render_system.resize();
+          }
+          console.log('par loaded', app);
+
+          
+          app.create_renderable(new ge.geometry.mesh({
+              geometry: ge.geometry.shapes.plane({ width: 100, height: 100 }), material: new ge.shading.shaded_material({ specular: [0, 0, 0] })
+          }),
+              function (m, e) {
+                  e.ge_transform.set_position(0,0, 0).rotate_eular(RD(-90), 0, 0);
+                  m.material.texture = ge.webgl.texture.from_url("res/r10.jpg", true);
+                  math.mat3.translate_rotate_scale(m.material.texture_matrix, 0, 0, 16, 16, 0);
+                  m.material.flags += ge.SHADING.RECEIVE_SHADOW;
+
+
+              });
+              
+
+
+          var ps = app.use_system('worker_particles_system', {});
+
+          console.log(ps);
+
+          function demo1() {
+                           
+
+              var e1 = ps.define_emitter("e1", {
+                  particle_size:9
+              }, [
+                  function (em) {
+
+                      var par;
+                      em.update_particle = function (par, ins, time_delta) {
+                          par[3] += par[6] * time_delta;
+                          par[4] += par[7] * time_delta;
+                          par[5] += par[8] * time_delta;
+
+                          par[7] -= 2*time_delta;
+
+                      };
+                      em.use_instance = function (ins, dt, ci) {
+                          ins.x = dt[ci];
+                          ins.y = dt[ci + 1];
+                          ins.z = dt[ci + 2];
+
+                      }
+
+                      em.trigger_emitter = function (ins) {
+                          par = this.queue_particle(0, ins.id, 4);
+
+                          par[3] = ins.x;
+                          par[4] = ins.y;
+                          par[5] = ins.z;
+
+                          par[6] = (Math.random() - 0.5) * 3;
+                          par[7] = (Math.random() * 2) + 2;
+                          par[8] = (Math.random() - 0.5) * 1;
+
+
+                          par[8] = 0;
+                      }
+
+                      console.log(em);
+
+                  }]);
+
+
+              var cpos = [];
+              var inid = 1;
+              
+              app.attach_component(camera, 'ge_mouse_camera_controller', {
+                  element: app.render_system.renderer.canvas,
+                  wheel_delta: 0.01,
+                  on_mouse_down: function (x, y, e) {
+                      app.render_system.picking_mouse_x = x;
+                      app.render_system.picking_mouse_y = y;
+                  },
+                  on_mouse_up: function (x, y, e) {
+                      camera.ge_camera.is_locked = false;
+
+                      if (e.ctrlKey) {
+                          this.set_mouse_ray();
+
+                          math.utils.ray_plane_intersection(cpos, this.mouse_ray_start, this.mouse_ray_end, [0, 0, 0], [0, 1, 0]);
+
+                          e1.push_command([200, 1, -1, 0.02, cpos[0], cpos[1], cpos[2]]);
+
+                      }
+                      
+                  },
+              });
+              var sp = ge.geometry.shapes.sphere({size:0.2, rad: 0.1, divs: 8 });
+             
+
+              app.create_renderable(new ge.geometry.mesh({
+                  geometry: sp,
+                  material: new ge.shading.shaded_material({
+                      wireframe: false,
+                      ambient: [0, 0.2, 0.8],
+                      cast_shadows: true,
+                      transparent:0.99
+                  }),
+                  
+              }),
+                  function (m, e) {
+
+                      var insat = sp.add_attribute("a_particles_rw", {
+                          data: new Float32Array(1000 * 4),
+                          item_size: 4,
+                          divisor: 1
+                      });
+
+                      e1.on_data = function (dt, di, size) {
+                          var ii = 0, mxy = -Infinity;
+                          m.material.instances_count = 0;
+                          while (di < size) {
+                              
+                              insat.data[ii++] = dt[di + 3];
+                              insat.data[ii++] = dt[di + 4];
+                              insat.data[ii++] = dt[di + 5];
+
+                              insat.data[ii++] = Math.max(0.4, dt[di + 1]);
+                              mxy = Math.max(mxy, dt[di + 4]);
+                             // console.log(dt[di + 3] + ',' + dt[di + 4] + ',' + dt[di + 5]);
+                              m.material.instances_count++;
+                              di += dt[1];
+                          }
+                         // if(mxy>0) console.log(mxy);
+                          insat.needs_update = true;
+
+                      }
+
+
+
+                      m.material.shader = m.material.shader.extend(`
+
+attribute vec4 a_particles_rw;
+varying vec4 v_particles_rw;
+vec4 att_position(void){
+    return vec4(((a_position_rw.xyz)+a_particles_rw.xyz),1.0);
+}
+void vertex(){
+	super_vertex();
+v_particles_rw=a_particles_rw;
+
+}
+varying vec4 v_particles_rw;
+void fragment(){
+	super_fragment();
+//gl_FragColor.w=1.0-v_particles_rw.w;
+}
+`);
+                      m.flags += ge.DISPLAY_ALWAYS;
+
+                      m.material.complete_render_mesh1 = (function (sup) {
+                        
+                          return function (renderer, shader, mesh) {
+                              
+                           
+                          }
+                      })(m.material.complete_render_mesh);
+
+
+
+                  });
+
+              app.attach_component(camera, 'ge_keyboard_camera_controller', {
+                  element: document,
+                  front_back_delta: 0.1,
+                  on_key_down: function (keys) {
+                      if (keys[KBD_KEY_UP]) {
+                          e1.push_command([1000, 12, 32, Date.now()]);
+
+                      }
+
+
+                  }
+              });
+
+
+          }
+
+
+          function demo2() {
+              app.create_renderable(ps.create_point_particle_emitter({
+                  texture: ge.webgl.texture.create_texture_atlas({
+                      width: 2048, height: 2048,
+                      inputs: [
+                          { src: "res/point-particle-sheet.png", tiles_in_row: 5, dest_x: 0, dest_y: 0, dest_size: 64 },
+                          { src: "res/flame-sprites.png", tiles_in_row: 5, dest_x: 0, dest_y: 64, dest_size: 64 },
+                          { src: "res/172607_fire-sprite-png.png", tiles_in_row: 5, dest_x: 0, dest_y: 200, dest_size: 64 },
+                          { src: "res/arrow.png", rotation_sprites: 60, dest_x: 0, dest_y: 264, dest_size: 32 },
+                      ]
+                  }),
+                  texture_sets: [
+                      [0, 0, 1920, 64],
+                      [0, 64, 64 * 20, 64],
+                      [0, 200, 64 * 6, 64],
+                      [0, 264, 32* 60, 32],
+                  ],
+                  emitter: function (em) {
+                      em.def.particle_size = 20;
+                      em.on_particle_update = function (par, ins, time_delta) {
+                          var a = Math.atan2(par[3] - par[15],par[5] - par[17]) + Math.PI;
+
+                          par[14] = a / 6.283185;
+
+                          par[15] = par[3];
+                          par[16] = par[4];
+                          par[17] = par[5];
+
+
+
+
+
+                      }
+                      em.pack_life_texture_size = function (uint8, par) {
+
+
+                      };
+                  }
+              }),
+                  function (m, e) {
+                      console.log(m);
+                      var cpos = [];
+                      app.attach_component(camera, 'ge_mouse_camera_controller', {
+                          element: app.render_system.renderer.canvas,
+                          wheel_delta: 0.01,
+                          on_mouse_up: function (x, y, e) {
+                              if (e.ctrlKey) {
+                                  this.set_mouse_ray();
+                                  math.utils.ray_plane_intersection(cpos, this.mouse_ray_start, this.mouse_ray_end, [0, 0, 0], [0, 1, 0]);
+
+                                  m.emitter.push_command([200, 1, 3, 0.12, cpos[0], cpos[1], cpos[2], 4]);
+
+                              }
+
+                          },
+                      });
+                      
+
+
+                  });
+          }
+          demo2();
+
+          app.start(function () {
+
+          }, 1 /60);
+
+      });
+
+
+    
+  </script>
+
+
+  
+</body>
+</html>

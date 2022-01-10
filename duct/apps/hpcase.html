@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <title>finally</title>
+  <script src="../finally.js"></script>
+  <style>
+    a {
+        user-select:none;
+        border-top-left-radius
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+  <script>    
+   
+    
+      fin.entry(function (fin, ge, math) {
+          dependencies([
+              ['ecs', '/libs/ecs.js'],
+              ['math', '/libs/math.js'],
+              ['ge', '/ge/index.js'],
+              ['gltf', '/libs/ge.gltf.js']
+
+          ]);
+
+          var app = new ge.app({
+              renderer: {
+                  pixel_ratio: 1
+              }
+          });
+
+          function RD(a) {
+              return a * math.DEGTORAD;
+          }
+          var RV = function (min, max) {
+              return Math.floor(Math.min(max, (Math.random() * max) + min));
+          }
+
+
+          app.create_renderable(new ge.shading.light({
+              intensity: 2,
+              ambient: [1, 1, 1]
+          }),
+              function (m, e) {
+                  e.ge_transform.rotate_eular(RD(-90), RD(170), 0);
+
+
+                  m.enable_shadows({
+                      shadow_intensity: 0.2,
+                      shadow_map_size: 2048,
+                      shadow_camera_distance: 25
+                  })
+              });
+
+
+
+          var camera = app.render_system.camera;
+
+
+
+          app.create_renderable(new ge.geometry.mesh({
+              geometry: ge.geometry.shapes.plane({ width: 100, height: 100 }), material: new ge.shading.shaded_material({ specular: [0, 0, 0] })
+          }),
+              function (m, e) {
+                  e.ge_transform.set_position(0, 0, 0).rotate_eular(RD(-90), 0, 0);
+                  m.material.texture = ge.webgl.texture.from_url("res/r10.jpg", true);
+                  math.mat3.translate_rotate_scale(m.material.texture_matrix, 0, 0, 16, 16, 0);
+
+
+              });
+
+
+
+
+          camera.ge_transform_controller
+
+              //.set_position(6.851924896240234, 3.1162030696868896, -11.356725692749023)
+              //.set_rotate(0.6349994540214539, 7.835032939910889, 0);
+
+              .set_position(9.219439506530762, 12.407609939575195, 14.522102355957031)
+              .set_rotate(-0.2650001347064972, 0.015000144951045513, 0);
+
+
+          app.attach_component(camera, 'ge_mouse_camera_controller', {
+              element: app.render_system.renderer.canvas,
+              wheel_delta: 0.01,
+              on_mouse_down: function (x, y, e) {
+                  app.render_system.picking_mouse_x = x;
+                  app.render_system.picking_mouse_y = y;
+              },
+              on_mouse_up: function (x, y, e) {
+                  camera.ge_camera.is_locked = false;
+              },
+          });
+
+          window.onresize = function () {
+              app.render_system.resize();
+          }
+
+
+                     
+
+
+          var ps = app.use_system('particles_system', {});
+
+          console.log(ps);
+
+          var agrid = [];
+          for (var z = 0; z < 13; z+=1.5) {
+              for (var x = 0; x < 17; x+=1.5) {
+                  agrid.push([x, z]);
+              }
+          }
+          var e1 = ps.add_emitter("air", {
+              particle_size: 8,
+
+              use_particle: function (par, ins) {
+                  par[1] =10;
+
+
+                  var ar = agrid[ Math.floor(Math.random() * agrid.length)];
+
+                 // ar = agrid[agrid.length-1];
+                  par[2] = ins.pos[0] + ar[0];
+                  par[3] = ins.pos[1];
+                  par[4] = ins.pos[2] + ar[1];
+
+
+                  var a = Math.random() * 6.284;
+                  par[5] = ins.dir[0] + (Math.sin(a) * 0.4);
+                  par[6] = ins.dir[1];
+                  par[7] = ins.dir[2] + (Math.cos(a) * 0.2);
+
+
+                  return par;
+              },
+              update_particle: function (par, ins, time_delta) {
+                  par[2] += par[5] * time_delta;
+                  par[3] += par[6] * time_delta;
+                  par[4] += par[7] * time_delta;
+
+              }
+          });
+
+
+          var ins1 = e1.create_instance({
+              max_particles: 1000,
+              emit_delay: 0.00125,
+              pos: [0.8999999999999363, 8.2, -13.05000000000011],
+              dir: [0, -3, 0],
+              rate: 4
+
+
+          });
+
+
+
+          app.attach_component(camera, 'ge_keyboard_camera_controller', {
+              element: document,
+              front_back_delta: 0.1,
+              on_key_down: function (keys) {
+                  if (keys[KBD_KEY_UP]) {
+                      ins1.pos[2] += 0.025;
+                  }
+                  else if (keys[KBD_KEY_DOWN]) {
+                      ins1.pos[2] -= 0.025;
+                  }
+
+                  else if (keys[KBD_KEY_LEFT]) {
+                      ins1.pos[0] -= 0.025;
+                  }
+
+                  else if (keys[KBD_KEY_RIGHT]) {
+                      ins1.pos[0] += 0.025;
+                  }
+
+                  console.log(ins1.pos.join());
+              }
+          });
+
+          
+          
+
+          var geos = ["beds", "pipes", "pillars", "ventwalls", "ventceil", "floor","box"];
+
+         // geos = ["beds", "ventceil"];
+        //  geos = ["beds"];
+          //
+          var mats = {
+              "box": {
+                  transparent: 0.45,
+                  ambient: [251, 238, 251],
+                  transparent_layer: 1,
+                  always_display: true,
+                  cast_shadows:false
+
+              },
+              "pipes": {
+                  transparent: 0.65,
+                  ambient: [110, 44, 0],
+              },
+              "beds": {
+                  ambient: [217, 99, 74],
+                  cast_shadows:true
+              },
+              "pillars": {
+                  ambient: [237, 187, 153],
+
+              },
+              "floor": {
+                  ambient: [52, 73, 94],
+                  receive_shadows:true
+              },
+              "ventwalls": {
+                  ambient: [34, 187, 211],
+
+              },
+              "ventceil": {
+                  ambient: [34, 187, 211]
+              }
+
+
+          };
+          app.root.ge_transform.set_position(0, 1, 0);
+          fin.each_index(function (i, next) {
+              fin.url_loader("res/" + geos[i] + ".json", function (data) {
+
+                  var d = JSON.parse(data);
+
+                  var g = ge.geometry.geometry_data.create({
+                      vertices: new Float32Array(d.p),
+                      normals: new Float32Array(d.n)
+                  });
+
+                  var mat = {
+                      ambient:[128,128,128]
+                  }
+                  var mm = mats[geos[i]];
+                  if (mm) {
+                      Object.assign(mat, mm)
+                  }
+
+                  mat.ambient[0] /= 256;
+                  mat.ambient[1] /= 256;
+                  mat.ambient[2] /= 256;
+
+                  mat.diffuse = mat.ambient;
+
+                  g.scale_position_rotation(0.003, 0.003, 0.003,0,0,0, -math.DEGTORAD * 90, 0, 0)
+                  app.create_renderable(new ge.geometry.mesh({
+                      geometry: g, material: new ge.shading.shaded_material(mat)
+                  }),
+                      function (m, e) {
+                          e.ge_transform.parent = app.root.ge_transform;
+                          if (i < geos.length - 1) next(i + 1);
+                          else {
+                            
+                          }
+                      });
+              });
+
+          });
+
+
+          app.create_renderable(new ge.geometry.mesh({
+              geometry: ge.geometry.shapes.sphere({ rad: 0.04, divs: 8 }),
+              material: new ge.shading.material({
+                  wireframe: false,
+                  ambient:[0,0.2,0.8],
+                  transparent: 0.5
+
+              })
+          }),
+              function (m, e) {
+                  e.ge_transform.parent = app.root.ge_transform;
+                  m.material.shader = m.material.shader.extend(`
+uniform vec4 u_par_rw;
+
+vec4 att_position(void){
+    return vec4((a_position_rw.xyz+u_par_rw.xyz),1.0);
+}
+void vertex(){
+	super_vertex();
+}
+
+`);
+                  m.flags += ge.DISPLAY_ALWAYS;
+                  console.log(e1);
+                  m.material.complete_render_mesh = (function (sup) {
+                      var v1 = math.vec4();
+                      var par;
+
+
+                      return function (renderer, shader, mesh) {
+                          i = e1.pi;
+                          while (i > 0) {
+                              par = e1.active_particles[--i];
+
+                              if (par[3] < 1) {
+                                  par[6] = 0;
+                                  if (par[2] < 9) {
+                                      par[5] = -3;
+                                  }
+                                  else {
+                                      par[5] = 3;
+                                  }
+
+                                  par[7] = 0;
+
+
+                              }
+                              if (par[2] > 18.25) {
+                                  par[2] = 18.25;
+                                  par[5] = 0
+                                  par[6] = 4;
+                              }
+
+                              else if (par[2] <0.07) {
+                                  par[2] = 0.07;
+                                  par[5] = 0
+                                  par[6] = 4;
+                              }
+
+                              v1[0] = par[2];
+                              v1[1] = par[3];
+                              v1[2] = par[4];
+                              shader.set_uniform("u_par_rw", v1);
+                              sup.apply(this, [renderer, shader, mesh]);
+                              if (par[3] > 11) {
+                                  par[1] = 0;
+                              }
+
+                              
+                          }
+                      }
+                  })(m.material.complete_render_mesh);
+
+
+
+              });
+
+          app.start(function () {
+
+          }, 1 / 60);
+
+      });
+
+
+    
+  </script>
+
+
+  
+</body>
+</html>

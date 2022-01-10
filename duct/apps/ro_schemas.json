@@ -1,0 +1,6 @@
+{
+  "go": {
+    "#pos": "float32x3",
+    "clr": "uint8x3"
+  }
+}
