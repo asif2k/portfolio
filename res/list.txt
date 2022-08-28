@@ -7,7 +7,7 @@
 08/28/2022  07:20 PM    <DIR>          ..
 08/28/2022  07:20 PM    <DIR>          3d
 08/28/2022  09:44 PM    <DIR>          art
-08/28/2022  09:46 PM                 0 list.txt
+08/28/2022  10:11 PM                 0 list.txt
                1 File(s)              0 bytes
 
  Directory of D:\Work\portfolio\res\3d
@@ -26,7 +26,7 @@
 06/17/2022  10:43 PM        26,707,635 OldBenObiOne.gltf
 12/23/2020  07:01 PM            37,621 r4.jpg
 04/17/2002  12:03 AM            12,060 run_loop.bvh
-08/28/2022  09:41 PM    <DIR>          terrain
+08/28/2022  10:11 PM    <DIR>          terrain
                4 File(s)     26,797,092 bytes
 
  Directory of D:\Work\portfolio\res\art\Billboard_grass
@@ -346,8 +346,8 @@
 
  Directory of D:\Work\portfolio\res\art\terrain
 
-08/28/2022  09:41 PM    <DIR>          .
-08/28/2022  09:41 PM    <DIR>          ..
+08/28/2022  10:11 PM    <DIR>          .
+08/28/2022  10:11 PM    <DIR>          ..
 04/20/2014  11:23 AM         1,467,645 adesert_cracks_d.jpg
 04/20/2014  11:23 AM           917,580 adesert_mntn2o_d.jpg
 04/20/2014  11:23 AM         1,074,564 adesert_mntn2_d.jpg
@@ -415,7 +415,6 @@
 04/20/2014  11:23 AM           963,274 grass_rocky_d.jpg
 04/20/2014  11:23 AM           930,184 grass_rocky_n.jpg
 04/20/2014  11:23 AM           408,017 grass_rocky_s.jpg
-08/28/2022  09:41 PM    <DIR>          ground
 04/20/2014  11:23 AM           703,909 ground_crackedo_d.jpg
 04/20/2014  11:23 AM           709,604 ground_crackedv_d.jpg
 04/20/2014  11:23 AM           896,016 ground_cracked_n.jpg
@@ -506,7 +505,6 @@
 04/20/2014  11:23 AM           899,201 moss_plants_d.jpg
 04/20/2014  11:23 AM           703,577 moss_plants_n.jpg
 04/20/2014  11:23 AM         1,044,779 moss_plants_s.jpg
-08/28/2022  09:41 PM    <DIR>          rock
 04/20/2014  11:23 AM         1,234,385 savanna_dry_d.jpg
 04/20/2014  11:23 AM         1,055,779 savanna_dry_n.jpg
 04/20/2014  11:23 AM           545,089 savanna_dry_s.jpg
@@ -547,57 +545,6 @@
 04/20/2014  11:23 AM           377,089 snow_rough_s.jpg
              195 File(s)    146,817,291 bytes
 
- Directory of D:\Work\portfolio\res\art\terrain\ground
-
-08/28/2022  09:41 PM    <DIR>          .
-08/28/2022  09:41 PM    <DIR>          ..
-03/13/2015  12:31 PM                 0 .png
-03/13/2015  12:33 PM         1,373,937 0.png
-03/13/2015  12:34 PM         1,238,894 1.png
-03/13/2015  12:33 PM           975,489 10.png
-03/13/2015  12:33 PM         1,529,840 11.png
-03/13/2015  12:33 PM         1,371,363 12.png
-03/13/2015  12:33 PM         1,221,333 13.png
-03/13/2015  12:34 PM           961,663 15.png
-03/13/2015  12:34 PM         1,438,359 16.png
-03/13/2015  12:34 PM         1,397,208 17.png
-03/13/2015  12:34 PM         1,483,467 18.png
-03/13/2015  12:34 PM         1,279,540 19.png
-03/13/2015  12:36 PM         1,300,703 2.png
-03/13/2015  12:34 PM         1,252,081 20.png
-03/13/2015  12:34 PM         1,229,000 21.png
-03/13/2015  12:35 PM         1,676,219 22.png
-03/13/2015  12:35 PM         1,285,299 23.png
-03/13/2015  12:35 PM         1,331,038 24.png
-03/13/2015  12:35 PM         1,282,980 25.png
-03/13/2015  12:35 PM         1,280,373 26.png
-03/13/2015  12:35 PM         1,205,840 27.png
-03/13/2015  12:35 PM         1,146,930 28.png
-03/13/2015  12:36 PM         1,012,519 29.png
-03/13/2015  12:36 PM         1,194,017 3.png
-03/13/2015  12:36 PM         1,507,430 4.png
-03/13/2015  12:36 PM         1,238,967 5.png
-03/13/2015  12:36 PM         1,420,719 6.png
-03/13/2015  12:36 PM         1,238,967 7.png
-03/13/2015  12:36 PM         1,099,748 8.png
-              29 File(s)     35,973,923 bytes
-
- Directory of D:\Work\portfolio\res\art\terrain\rock
-
-08/28/2022  09:41 PM    <DIR>          .
-08/28/2022  09:41 PM    <DIR>          ..
-03/13/2015  12:42 PM         1,222,412 0.png
-03/13/2015  12:42 PM         1,175,198 1.png
-03/13/2015  12:42 PM         1,313,943 2.png
-03/13/2015  12:43 PM         1,203,177 3.png
-03/13/2015  12:43 PM         1,556,096 4.png
-03/13/2015  12:43 PM         1,236,508 5.png
-03/13/2015  12:43 PM         1,573,619 6.png
-03/13/2015  12:43 PM         1,302,989 7.png
-03/13/2015  12:43 PM         1,376,260 8.png
-03/13/2015  12:43 PM         1,222,320 9.png
-              10 File(s)     13,182,522 bytes
-
      Total Files Listed:
-             542 File(s)    370,945,334 bytes
-              23 Dir(s)  118,172,655,616 bytes free
+             503 File(s)    321,788,889 bytes
+              17 Dir(s)  117,936,078,848 bytes free
