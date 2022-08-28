@@ -7,7 +7,7 @@
 08/28/2022  07:20 PM    <DIR>          ..
 08/28/2022  07:20 PM    <DIR>          3d
 08/28/2022  07:18 PM    <DIR>          art
-08/28/2022  07:58 PM                 0 list.txt
+08/28/2022  08:05 PM                 0 list.txt
                1 File(s)              0 bytes
 
  Directory of D:\Work\portfolio\res\3d
@@ -301,4 +301,4 @@
 
      Total Files Listed:
              264 File(s)    174,411,905 bytes
-              14 Dir(s)  117,997,060,096 bytes free
+              14 Dir(s)  118,599,610,368 bytes free
