@@ -1,0 +1,695 @@
+{
+  "description": "the creature files of soma (soma/creature_file.js): each is one JS file that returns the creature: its body, who it is to the others and its mind",
+  "creatures": [
+    {
+      "name": "ant",
+      "file": "ant.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "antler_hound",
+      "file": "antler_hound.js",
+      "bones": 59,
+      "joints": 22,
+      "chains": 6,
+      "units": 6,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "antlered hound",
+      "sources": [
+        "Saluki Dog Breed (Game Ready)",
+        "Deer walk cycle Animated"
+      ]
+    },
+    {
+      "name": "army_grenadier",
+      "file": "army_grenadier.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "army_gunner",
+      "file": "army_gunner.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "army_rifleman",
+      "file": "army_rifleman.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "army_rocketeer",
+      "file": "army_rocketeer.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "bear",
+      "file": "bear.js",
+      "bones": 26,
+      "joints": 24,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "bike",
+      "file": "bike.js",
+      "bones": 3,
+      "joints": 0,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "biped",
+      "file": "biped.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "biplane",
+      "file": "biplane.js",
+      "bones": 9,
+      "joints": 0,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "bird",
+      "file": "bird.js",
+      "bones": 17,
+      "joints": 11,
+      "chains": 3,
+      "units": 3
+    },
+    {
+      "name": "black_bear",
+      "file": "black_bear.js",
+      "bones": 26,
+      "joints": 24,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "bolt",
+      "file": "bolt.js",
+      "bones": 25,
+      "joints": 21,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "brawler",
+      "file": "brawler.js",
+      "bones": 22,
+      "joints": 19,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "buggy",
+      "file": "buggy.js",
+      "bones": 5,
+      "joints": 0,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "camelopard",
+      "file": "camelopard.js",
+      "bones": 48,
+      "joints": 23,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "long-necked deer",
+      "sources": [
+        "Doe",
+        "Giraffe lowpoly"
+      ]
+    },
+    {
+      "name": "copter",
+      "file": "copter.js",
+      "bones": 3,
+      "joints": 0,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "depot_guard",
+      "file": "depot_guard.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "depot_raider",
+      "file": "depot_raider.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "depot_worker",
+      "file": "depot_worker.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "dragon_wolf",
+      "file": "dragon_wolf.js",
+      "bones": 69,
+      "joints": 29,
+      "chains": 6,
+      "units": 6,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "dragon wolf",
+      "sources": [
+        "Eurasian Gray Wolf",
+        "MOUNTAIN DRAGON ANIMATIONS",
+        "Cartoon Brass Dragon Animated Low poly 3D Model"
+      ]
+    },
+    {
+      "name": "drone",
+      "file": "drone.js",
+      "bones": 10,
+      "joints": 1,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "elephant",
+      "file": "elephant.js",
+      "bones": 45,
+      "joints": 40,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "excavator",
+      "file": "excavator.js",
+      "bones": 5,
+      "joints": 4,
+      "chains": 1,
+      "units": 1
+    },
+    {
+      "name": "fat_monster",
+      "file": "fat_monster.js",
+      "bones": 28,
+      "joints": 24,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "forklift",
+      "file": "forklift.js",
+      "bones": 7,
+      "joints": 2,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "gator_dog",
+      "file": "gator_dog.js",
+      "bones": 50,
+      "joints": 24,
+      "chains": 6,
+      "units": 6,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "alligator dog",
+      "sources": [
+        "Dobermann Pinscher Dog Breed (Game Ready)",
+        "Alligator Rigged",
+        "Saltwater crocodile"
+      ]
+    },
+    {
+      "name": "griffin",
+      "file": "griffin.js",
+      "bones": 105,
+      "joints": 18,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "griffin",
+      "sources": [
+        "Lioness",
+        "Stylized pigeon",
+        "KEKOS Horses   Pegasus [Single Character]"
+      ]
+    },
+    {
+      "name": "gun_hound",
+      "file": "gun_hound.js",
+      "bones": 32,
+      "joints": 21,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "gun_jeep",
+      "file": "gun_jeep.js",
+      "bones": 9,
+      "joints": 4,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "horse",
+      "file": "horse.js",
+      "bones": 36,
+      "joints": 33,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "hound",
+      "file": "hound.js",
+      "bones": 32,
+      "joints": 21,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "human_child",
+      "file": "human_child.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "human_elder",
+      "file": "human_elder.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "human_man",
+      "file": "human_man.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "human_woman",
+      "file": "human_woman.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "jaguar",
+      "file": "jaguar.js",
+      "bones": 34,
+      "joints": 33,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "jaguar_lowpoly",
+      "file": "jaguar_lowpoly.js",
+      "bones": 26,
+      "joints": 23,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "jeep",
+      "file": "jeep.js",
+      "bones": 7,
+      "joints": 2,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "jet",
+      "file": "jet.js",
+      "bones": 19,
+      "joints": 12,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "knight",
+      "file": "knight.js",
+      "bones": 23,
+      "joints": 19,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "laborer",
+      "file": "laborer.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "mannequin",
+      "file": "mannequin.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "otter",
+      "file": "otter.js",
+      "bones": 39,
+      "joints": 38,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "owl",
+      "file": "owl.js",
+      "bones": 18,
+      "joints": 17,
+      "chains": 3,
+      "units": 3
+    },
+    {
+      "name": "parasaurolophus",
+      "file": "parasaurolophus.js",
+      "bones": 66,
+      "joints": 32,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "partygoer",
+      "file": "partygoer.js",
+      "bones": 19,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "pegasus",
+      "file": "pegasus.js",
+      "bones": 73,
+      "joints": 21,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "pegasus",
+      "sources": [
+        "Horse(Stallion)   Game Ready",
+        "Toon Bird"
+      ]
+    },
+    {
+      "name": "person",
+      "file": "person.js",
+      "bones": 28,
+      "joints": 18,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "peryton",
+      "file": "peryton.js",
+      "bones": 118,
+      "joints": 19,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "peryton",
+      "sources": [
+        "Doe",
+        "Deer walk cycle Animated",
+        "KEKOS Horses   Pegasus [Single Character]"
+      ]
+    },
+    {
+      "name": "pickup",
+      "file": "pickup.js",
+      "bones": 7,
+      "joints": 2,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "police_detective",
+      "file": "police_detective.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "police_patrol",
+      "file": "police_patrol.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "police_riot",
+      "file": "police_riot.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "police_sniper",
+      "file": "police_sniper.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "police_swat",
+      "file": "police_swat.js",
+      "bones": 65,
+      "joints": 23,
+      "chains": 5,
+      "units": 3
+    },
+    {
+      "name": "quadruped",
+      "file": "quadruped.js",
+      "bones": 32,
+      "joints": 31,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "rhino",
+      "file": "rhino.js",
+      "bones": 27,
+      "joints": 25,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "robohawk",
+      "file": "robohawk.js",
+      "bones": 18,
+      "joints": 12,
+      "chains": 3,
+      "units": 3
+    },
+    {
+      "name": "robot_arm",
+      "file": "robot_arm.js",
+      "bones": 7,
+      "joints": 6,
+      "chains": 1,
+      "units": 1
+    },
+    {
+      "name": "rover",
+      "file": "rover.js",
+      "bones": 9,
+      "joints": 4,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "sauropod",
+      "file": "sauropod.js",
+      "bones": 27,
+      "joints": 24,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "sedan",
+      "file": "sedan.js",
+      "bones": 9,
+      "joints": 4,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "sentry",
+      "file": "sentry.js",
+      "bones": 3,
+      "joints": 2,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "serpent",
+      "file": "serpent.js",
+      "bones": 17,
+      "joints": 16,
+      "chains": 1,
+      "units": 1
+    },
+    {
+      "name": "soldier",
+      "file": "soldier.js",
+      "bones": 23,
+      "joints": 19,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "spiderbot",
+      "file": "spiderbot.js",
+      "bones": 27,
+      "joints": 18,
+      "chains": 6,
+      "units": 6
+    },
+    {
+      "name": "strider",
+      "file": "strider.js",
+      "bones": 24,
+      "joints": 23,
+      "chains": 7,
+      "units": 7
+    },
+    {
+      "name": "tank",
+      "file": "tank.js",
+      "bones": 11,
+      "joints": 2,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "tortoise",
+      "file": "tortoise.js",
+      "bones": 17,
+      "joints": 12,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "tortoise",
+      "sources": [
+        "Tortoise",
+        "Green Turtle"
+      ]
+    },
+    {
+      "name": "trex",
+      "file": "trex.js",
+      "bones": 28,
+      "joints": 27,
+      "chains": 4,
+      "units": 4
+    },
+    {
+      "name": "truck",
+      "file": "truck.js",
+      "bones": 8,
+      "joints": 1,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "trunk_bear",
+      "file": "trunk_bear.js",
+      "bones": 44,
+      "joints": 24,
+      "chains": 5,
+      "units": 5,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "trunked bear",
+      "sources": [
+        "Giant Panda Bear Male (Endangered)",
+        "African Elephant"
+      ]
+    },
+    {
+      "name": "wagon",
+      "file": "wagon.js",
+      "bones": 5,
+      "joints": 0,
+      "chains": 0,
+      "units": 0
+    },
+    {
+      "name": "walker",
+      "file": "walker.js",
+      "bones": 21,
+      "joints": 18,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "wombat",
+      "file": "wombat.js",
+      "bones": 30,
+      "joints": 26,
+      "chains": 5,
+      "units": 5
+    },
+    {
+      "name": "wyvern",
+      "file": "wyvern.js",
+      "bones": 76,
+      "joints": 22,
+      "chains": 4,
+      "units": 4,
+      "built_from": "pieces",
+      "kind": "mixed",
+      "species": "wyvern",
+      "sources": [
+        "3DFoin   Raptor   02",
+        "004 Dragón Eléctrico"
+      ]
+    }
+  ]
+}
